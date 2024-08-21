@@ -10,7 +10,7 @@ const App = () => {
   const [showAddContact, setShowAddContact] = useState(false)
   const [showGroups, setShowGroups] = useState(false)
 
-  // Загрузка данных из localStorage при монтировании компонента
+  // из localStorage
   useEffect(() => {
     const savedContacts = JSON.parse(localStorage.getItem('contacts')) || []
     const savedGroups = JSON.parse(localStorage.getItem('groups')) || []
@@ -19,7 +19,7 @@ const App = () => {
     setGroups(savedGroups)
   }, [])
 
-  // Сохранение данных в localStorage при изменении списка контактов и групп
+  // в localStorage
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts))
     localStorage.setItem('groups', JSON.stringify(groups))
@@ -45,7 +45,7 @@ const App = () => {
         <h1 className="app-title">Книга контактов</h1>
         <div>
           <Button variant="danger" onClick={handleShowAddContact}>
-            Добавить контакт
+            Добавить контакт +
           </Button>
           <Button variant="primary" onClick={handleShowGroups}>
             Группы
@@ -66,7 +66,7 @@ const App = () => {
         )}
       </div>
 
-      {/* Модальные окна */}
+      {/* модальные окна */}
       <AddContactModal
         show={showAddContact}
         handleClose={handleCloseAddContact}

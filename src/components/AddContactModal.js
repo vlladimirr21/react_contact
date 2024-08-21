@@ -11,7 +11,7 @@ const AddContactModal = ({ show, handleClose, addContact, groups }) => {
     const newContact = { fullName, phoneNumber, group }
     addContact(newContact)
     handleClose()
-    setFullName('') // Сброс формы после сохранения
+    setFullName('') // сброс формы после сохранения
     setPhoneNumber('')
     setGroup(groups[0] || '')
   }
