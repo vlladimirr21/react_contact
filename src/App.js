@@ -6,24 +6,22 @@ import './App.css'
 import contactBookIcon from './img/contact-book-icon.png'
 
 const App = () => {
-  // Устанавливаем начальные группы
-  const initialGroups = ['Друзья', 'Коллеги']
   const [contacts, setContacts] = useState([])
-  const [groups, setGroups] = useState(initialGroups)
+  const [groups, setGroups] = useState(['Друзья', 'Коллеги']) // Начальные группы
   const [showAddContact, setShowAddContact] = useState(false)
   const [showGroups, setShowGroups] = useState(false)
 
-  // Загрузка из localStorage
   useEffect(() => {
     const savedContacts = JSON.parse(localStorage.getItem('contacts')) || []
-    const savedGroups =
-      JSON.parse(localStorage.getItem('groups')) || initialGroups
+    const savedGroups = JSON.parse(localStorage.getItem('groups')) || [
+      'Друзья',
+      'Коллеги',
+    ]
 
     setContacts(savedContacts)
     setGroups(savedGroups)
   }, [])
 
-  // Сохранение в localStorage
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts))
     localStorage.setItem('groups', JSON.stringify(groups))
@@ -77,7 +75,7 @@ const App = () => {
         )}
       </div>
 
-      {/* Модальные окна */}
+      {/* модальные окна */}
       <AddContactModal
         show={showAddContact}
         handleClose={handleCloseAddContact}
@@ -89,6 +87,7 @@ const App = () => {
         handleClose={handleCloseGroups}
         addGroup={handleAddGroup}
         groups={groups}
+        setGroups={setGroups} // Передача функции setGroups
       />
     </div>
   )

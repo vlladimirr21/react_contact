@@ -5,7 +5,7 @@ import '../App.css'
 const AddContactModal = ({ show, handleClose, addContact, groups }) => {
   const [fullName, setFullName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const [group, setGroup] = useState(groups[0] || '')
+  const [group, setGroup] = useState('') // Изначально пустая строка
 
   const handleSave = () => {
     const newContact = { fullName, phoneNumber, group }
@@ -13,7 +13,7 @@ const AddContactModal = ({ show, handleClose, addContact, groups }) => {
     handleClose()
     setFullName('') // сброс формы после сохранения
     setPhoneNumber('')
-    setGroup(groups[0] || '')
+    setGroup('') // сброс группы на пустую строку
   }
 
   return (
@@ -24,7 +24,6 @@ const AddContactModal = ({ show, handleClose, addContact, groups }) => {
       <Modal.Body>
         <Form>
           <Form.Group controlId="formFullName">
-            <Form.Label>Введите ФИО</Form.Label>
             <Form.Control
               type="text"
               placeholder="Введите ФИО"
@@ -33,7 +32,6 @@ const AddContactModal = ({ show, handleClose, addContact, groups }) => {
             />
           </Form.Group>
           <Form.Group controlId="formPhoneNumber">
-            <Form.Label>Введите номер</Form.Label>
             <Form.Control
               type="text"
               placeholder="Введите номер"
@@ -42,8 +40,14 @@ const AddContactModal = ({ show, handleClose, addContact, groups }) => {
             />
           </Form.Group>
           <Form.Group controlId="formGroup">
-            <Form.Label>Выберите группу</Form.Label>
-            <Form.Select value={group} onChange={e => setGroup(e.target.value)}>
+            <Form.Select
+              value={group}
+              onChange={e => setGroup(e.target.value)}
+              aria-label="Выберите группу"
+            >
+              <option value="" disabled>
+                Выберите группу
+              </option>
               {groups.map((group, index) => (
                 <option key={index} value={group}>
                   {group}

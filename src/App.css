@@ -141,10 +141,14 @@
 }
 
 .modal-footer .btn-primary {
-  background-color: #3498db;
+  background-color: #005bfe;
   color: white;
   border: none;
-  margin-left: auto;
+  width: 100px;
+  height: 36px;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 4px;
 }
 
 .modal-footer .btn-secondary {
@@ -168,24 +172,26 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1040;
 }
+
 .modal-backdrop.show {
   opacity: 0.5;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Формы заполнения */
-.form-control {
-  margin-bottom: 10px;
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 14px;
-}
-
+.form-control,
 .form-select {
   margin-bottom: 10px;
   border-radius: 4px;
   padding: 10px;
   font-size: 14px;
+  width: 100%; /* Все поля занимают полную ширину родительского контейнера */
+  box-sizing: border-box; /* Учитываем padding и border в ширине */
+}
+
+.form-select::placeholder {
+  color: #6c757d;
+  opacity: 1; /* Плейсхолдер полностью видим */
 }
 
 /* Media Queries */
@@ -193,6 +199,11 @@
   .modal-dialog-left {
     max-width: 100%;
     left: 0;
+  }
+
+  .modal-footer .btn-primary {
+    width: 95%;
+    font-size: 14px;
   }
 }
 
@@ -284,4 +295,56 @@
 
 .contact-group-title button:focus {
   outline: none;
+}
+
+/* Стили для групп */
+.group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.group-item input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.group-item input:focus {
+  outline: none;
+}
+
+.group-item .delete-button {
+  background-color: transparent;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.group-item .delete-button:hover {
+  color: #c0392b;
+}
+
+/* Стиль для кнопки "Добавить" */
+.group-add-button {
+  display: inline-block;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.group-add-button:hover {
+  background-color: #2980b9;
 }

@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
-import { Modal, Button, ListGroup, Form } from 'react-bootstrap'
+import { Modal, Button, Form } from 'react-bootstrap'
 import '../App.css'
 
-const GroupsModal = ({ show, handleClose, addGroup, groups }) => {
+const GroupsModal = ({ show, handleClose, addGroup, groups, setGroups }) => {
   const [newGroup, setNewGroup] = useState('')
 
   const handleAddGroup = () => {
     if (newGroup && !groups.includes(newGroup)) {
-      addGroup(newGroup)
+      const updatedGroups = [...groups, newGroup]
+      setGroups(updatedGroups)
       setNewGroup('')
     }
+  }
+
+  const handleDeleteGroup = groupToDelete => {
+    const updatedGroups = groups.filter(group => group !== groupToDelete)
+    setGroups(updatedGroups)
   }
 
   return (
@@ -23,11 +29,19 @@ const GroupsModal = ({ show, handleClose, addGroup, groups }) => {
         <Modal.Title>Группы контактов</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ListGroup>
+        <div>
           {groups.map((group, index) => (
-            <ListGroup.Item key={index}>{group}</ListGroup.Item>
+            <div key={index} className="group-item">
+              <input type="text" value={group} readOnly />
+              <button
+                className="delete-button"
+                onClick={() => handleDeleteGroup(group)}
+              >
+                &#x2715;
+              </button>
+            </div>
           ))}
-        </ListGroup>
+        </div>
         <Form.Group className="mt-3">
           <Form.Control
             type="text"
@@ -38,7 +52,7 @@ const GroupsModal = ({ show, handleClose, addGroup, groups }) => {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleAddGroup}>
+        <Button className="group-add-button" onClick={handleAddGroup}>
           Добавить
         </Button>
         <Button variant="primary" onClick={handleClose}>
