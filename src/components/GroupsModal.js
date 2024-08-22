@@ -13,7 +13,12 @@ const GroupsModal = ({ show, handleClose, addGroup, groups }) => {
   }
 
   return (
-    <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-left">
+    <Modal
+      show={show}
+      onHide={handleClose}
+      dialogClassName="modal-dialog-left"
+      // backdrop="static"
+    >
       <Modal.Header closeButton>
         <Modal.Title>Группы контактов</Modal.Title>
       </Modal.Header>

@@ -3,23 +3,27 @@ import { Button, ListGroup } from 'react-bootstrap'
 import AddContactModal from './components/AddContactModal'
 import GroupsModal from './components/GroupsModal'
 import './App.css'
+import contactBookIcon from './img/contact-book-icon.png'
 
 const App = () => {
+  // Устанавливаем начальные группы
+  const initialGroups = ['Друзья', 'Коллеги']
   const [contacts, setContacts] = useState([])
-  const [groups, setGroups] = useState([])
+  const [groups, setGroups] = useState(initialGroups)
   const [showAddContact, setShowAddContact] = useState(false)
   const [showGroups, setShowGroups] = useState(false)
 
-  // из localStorage
+  // Загрузка из localStorage
   useEffect(() => {
     const savedContacts = JSON.parse(localStorage.getItem('contacts')) || []
-    const savedGroups = JSON.parse(localStorage.getItem('groups')) || []
+    const savedGroups =
+      JSON.parse(localStorage.getItem('groups')) || initialGroups
 
     setContacts(savedContacts)
     setGroups(savedGroups)
   }, [])
 
-  // в localStorage
+  // Сохранение в localStorage
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts))
     localStorage.setItem('groups', JSON.stringify(groups))
@@ -42,7 +46,14 @@ const App = () => {
   return (
     <div className="container">
       <header className="header">
-        <h1 className="app-title">Книга контактов</h1>
+        <h1 className="app-title">
+          <img
+            src={contactBookIcon}
+            alt="Contact Book"
+            className="contact-book-icon"
+          />
+          Книга контактов
+        </h1>
         <div>
           <Button variant="danger" onClick={handleShowAddContact}>
             Добавить контакт +
@@ -66,7 +77,7 @@ const App = () => {
         )}
       </div>
 
-      {/* модальные окна */}
+      {/* Модальные окна */}
       <AddContactModal
         show={showAddContact}
         handleClose={handleCloseAddContact}
