@@ -1,0 +1,14 @@
+.form-control,
+.form-select {
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%; /* Все поля занимают полную ширину родительского контейнера */
+  box-sizing: border-box; /* Учитываем padding и border в ширине */
+}
+
+.form-select::placeholder {
+  color: #6c757d;
+  opacity: 1; /* Плейсхолдер полностью видим */
+}

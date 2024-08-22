@@ -5,15 +5,15 @@ import '../App.css'
 const AddContactModal = ({ show, handleClose, addContact, groups }) => {
   const [fullName, setFullName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const [group, setGroup] = useState('') // Изначально пустая строка
+  const [group, setGroup] = useState('')
 
   const handleSave = () => {
     const newContact = { fullName, phoneNumber, group }
     addContact(newContact)
     handleClose()
-    setFullName('') // сброс формы после сохранения
+    setFullName('')
     setPhoneNumber('')
-    setGroup('') // сброс группы на пустую строку
+    setGroup('')
   }
 
   return (

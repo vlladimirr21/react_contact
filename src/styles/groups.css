@@ -1,0 +1,49 @@
+.group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.group-item input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.group-item input:focus {
+  outline: none;
+}
+
+.group-item .delete-button {
+  background-color: transparent;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.group-item .delete-button:hover {
+  color: #c0392b;
+}
+
+.group-add-button {
+  display: inline-block;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.group-add-button:hover {
+  background-color: #2980b9;
+}

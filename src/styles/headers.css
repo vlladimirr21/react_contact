@@ -1,0 +1,22 @@
+.contact-book-icon {
+  width: 18px;
+  height: 22px;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  vertical-align: middle;
+}
+
+.header {
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-title {
+  font-size: 18px;
+  margin: 0;
+  color: #005bfe;
+}

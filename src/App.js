@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { Button, ListGroup } from 'react-bootstrap'
 import AddContactModal from './components/AddContactModal'
 import GroupsModal from './components/GroupsModal'
-import './App.css'
 import contactBookIcon from './img/contact-book-icon.png'
+// import styles
+import './styles/buttons.css'
+import './styles/containers.css'
+import './styles/headers.css'
+import './styles/modals.css'
+import './styles/forms.css'
+import './styles/contacts.css'
+import './styles/groups.css'
 
 const App = () => {
   const [contacts, setContacts] = useState([])
-  const [groups, setGroups] = useState(['Друзья', 'Коллеги']) // Начальные группы
+  const [groups, setGroups] = useState(['Друзья', 'Коллеги'])
   const [showAddContact, setShowAddContact] = useState(false)
   const [showGroups, setShowGroups] = useState(false)
 
@@ -87,7 +94,7 @@ const App = () => {
         handleClose={handleCloseGroups}
         addGroup={handleAddGroup}
         groups={groups}
-        setGroups={setGroups} // Передача функции setGroups
+        setGroups={setGroups}
       />
     </div>
   )
