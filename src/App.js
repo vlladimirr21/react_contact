@@ -31,7 +31,7 @@ const App = () => {
     setContacts(savedContacts)
 
     const initialOpenGroups = savedGroups.reduce((acc, group) => {
-      acc[group] = false // По умолчанию все группы закрыты
+      acc[group] = false 
       return acc
     }, {})
     setOpenGroups(initialOpenGroups)

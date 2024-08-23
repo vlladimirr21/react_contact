@@ -29,23 +29,21 @@ const AddContactModal = ({
   const handleSave = () => {
     const newContact = { fullName, phoneNumber, group }
     addContact(newContact)
-    setFullName('') // Сброс поля ФИО после сохранения
-    setPhoneNumber('') // Сброс поля номера телефона после сохранения
-    setGroup('') // Сброс поля группы после сохранения
-    handleClose() // Закрытие модального окна
+    setFullName('')
+    setPhoneNumber('')
+    setGroup('')
+    handleClose()
   }
 
   const handlePhoneNumberChange = e => {
     const value = e.target.value
-    const formattedValue = value
-      .replace(/\D/g, '') // Удаляем все нечисловые символы
-      .slice(0, 11) // Ограничиваем до 11 символов
+    const formattedValue = value.replace(/\D/g, '').slice(0, 11)
     setPhoneNumber(formattedValue)
   }
 
   const handleFullNameChange = e => {
     const value = e.target.value
-    const formattedValue = value.replace(/[^a-zA-Zа-яА-Я\s]/g, '') // Удаляем все не буквы и не пробелы
+    const formattedValue = value.replace(/[^a-zA-Zа-яА-Я\s]/g, '')
     setFullName(formattedValue)
   }
 
