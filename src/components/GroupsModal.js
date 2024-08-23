@@ -1,30 +1,23 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-import '../App.css'
+import '../styles/modals.css'
+import '../styles/forms.css'
+//
+import '../img/button_delete_default.png'
+import deleteButton from '../img/button_delete_default.png'
 
-const GroupsModal = ({ show, handleClose, addGroup, groups, setGroups }) => {
+const GroupsModal = ({ show, handleClose, addGroup, deleteGroup, groups }) => {
   const [newGroup, setNewGroup] = useState('')
 
   const handleAddGroup = () => {
     if (newGroup && !groups.includes(newGroup)) {
-      const updatedGroups = [...groups, newGroup]
-      setGroups(updatedGroups)
+      addGroup(prevGroups => [...prevGroups, newGroup])
       setNewGroup('')
     }
   }
 
-  const handleDeleteGroup = groupToDelete => {
-    const updatedGroups = groups.filter(group => group !== groupToDelete)
-    setGroups(updatedGroups)
-  }
-
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}
-      dialogClassName="modal-dialog-left"
-      // backdrop="static"
-    >
+    <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-left">
       <Modal.Header closeButton>
         <Modal.Title>Группы контактов</Modal.Title>
       </Modal.Header>
@@ -35,9 +28,9 @@ const GroupsModal = ({ show, handleClose, addGroup, groups, setGroups }) => {
               <input type="text" value={group} readOnly />
               <button
                 className="delete-button"
-                onClick={() => handleDeleteGroup(group)}
+                onClick={() => deleteGroup(group)}
               >
-                &#x2715;
+                <img src={deleteButton} alt="Delete" />
               </button>
             </div>
           ))}

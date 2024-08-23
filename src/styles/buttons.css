@@ -45,3 +45,17 @@
 .header .btn-danger .icon {
   margin-right: 5px;
 }
+
+/*  */
+.delete-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.delete-button img.delete-icon {
+  width: 16px; /* Установите нужный размер изображения */
+  height: 16px;
+}

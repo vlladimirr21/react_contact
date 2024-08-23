@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Button, ListGroup } from 'react-bootstrap'
+import { Button, Collapse } from 'react-bootstrap'
 import AddContactModal from './components/AddContactModal'
 import GroupsModal from './components/GroupsModal'
-import contactBookIcon from './img/contact-book-icon.png'
-// import styles
 import './styles/buttons.css'
 import './styles/containers.css'
 import './styles/headers.css'
@@ -11,12 +9,17 @@ import './styles/modals.css'
 import './styles/forms.css'
 import './styles/contacts.css'
 import './styles/groups.css'
+import contactBookIcon from './img/contact-book-icon.png'
+import editIcon from './img/button_edit_default.png'
+import deleteIcon from './img/button_delete_default.png'
 
 const App = () => {
   const [contacts, setContacts] = useState([])
   const [groups, setGroups] = useState(['Друзья', 'Коллеги'])
   const [showAddContact, setShowAddContact] = useState(false)
   const [showGroups, setShowGroups] = useState(false)
+  const [currentContact, setCurrentContact] = useState(null)
+  const [openGroups, setOpenGroups] = useState({})
 
   useEffect(() => {
     const savedContacts = JSON.parse(localStorage.getItem('contacts')) || []
@@ -24,9 +27,14 @@ const App = () => {
       'Друзья',
       'Коллеги',
     ]
-
-    setContacts(savedContacts)
     setGroups(savedGroups)
+    setContacts(savedContacts)
+
+    const initialOpenGroups = savedGroups.reduce((acc, group) => {
+      acc[group] = false // По умолчанию все группы закрыты
+      return acc
+    }, {})
+    setOpenGroups(initialOpenGroups)
   }, [])
 
   useEffect(() => {
@@ -35,18 +43,53 @@ const App = () => {
   }, [contacts, groups])
 
   const handleAddContact = contact => {
-    setContacts([...contacts, contact])
+    if (currentContact) {
+      const updatedContacts = contacts.map(c =>
+        c === currentContact ? contact : c
+      )
+      setContacts(updatedContacts)
+      setCurrentContact(null)
+    } else {
+      setContacts([...contacts, contact])
+    }
   }
 
-  const handleAddGroup = group => {
-    setGroups([...groups, group])
+  const handleEditContact = contact => {
+    setCurrentContact(contact)
+    setShowAddContact(true)
   }
 
-  const handleShowAddContact = () => setShowAddContact(true)
+  const handleDeleteContact = contactToDelete => {
+    const updatedContacts = contacts.filter(c => c !== contactToDelete)
+    setContacts(updatedContacts)
+  }
+
+  const toggleGroup = groupName => {
+    setOpenGroups(prevOpenGroups => ({
+      ...prevOpenGroups,
+      [groupName]: !prevOpenGroups[groupName],
+    }))
+  }
+
+  const handleShowAddContact = () => {
+    setCurrentContact(null)
+    setShowAddContact(true)
+  }
+
   const handleCloseAddContact = () => setShowAddContact(false)
 
   const handleShowGroups = () => setShowGroups(true)
   const handleCloseGroups = () => setShowGroups(false)
+
+  const handleDeleteGroup = groupToDelete => {
+    const updatedGroups = groups.filter(group => group !== groupToDelete)
+    setGroups(updatedGroups)
+
+    const updatedContacts = contacts.filter(
+      contact => contact.group !== groupToDelete
+    )
+    setContacts(updatedContacts)
+  }
 
   return (
     <div className="container">
@@ -69,32 +112,62 @@ const App = () => {
         </div>
       </header>
       <div className="content">
-        {contacts.length > 0 ? (
-          <ListGroup>
-            {contacts.map((contact, index) => (
-              <ListGroup.Item key={index}>
-                {contact.fullName} - {contact.phoneNumber} ({contact.group})
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        ) : (
-          <p>Список контактов пуст</p>
-        )}
+        {groups.map((group, groupIndex) => (
+          <div key={groupIndex} className="contact-group">
+            <div
+              className="contact-group-title"
+              onClick={() => toggleGroup(group)}
+            >
+              {group}
+              <span className="toggle-icon">
+                {openGroups[group] ? '▲' : '▼'}
+              </span>
+            </div>
+            <Collapse in={openGroups[group]}>
+              <div className="contact-items">
+                {openGroups[group] &&
+                  contacts
+                    .filter(contact => contact.group === group)
+                    .map((contact, index) => (
+                      <div key={index} className="contact-item">
+                        <div className="contact-info">
+                          <span className="contact-name">
+                            {contact.fullName}
+                          </span>
+                          <span className="contact-phone">
+                            {contact.phoneNumber}
+                          </span>
+                        </div>
+                        <div className="contact-actions">
+                          <button onClick={() => handleEditContact(contact)}>
+                            <img src={editIcon} alt="Edit" />
+                          </button>
+                          <button onClick={() => handleDeleteContact(contact)}>
+                            <img src={deleteIcon} alt="Delete" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+              </div>
+            </Collapse>
+          </div>
+        ))}
+        {contacts.length === 0 && <p>Список контактов пуст</p>}
       </div>
 
-      {/* модальные окна */}
       <AddContactModal
         show={showAddContact}
         handleClose={handleCloseAddContact}
         addContact={handleAddContact}
         groups={groups}
+        currentContact={currentContact}
       />
       <GroupsModal
         show={showGroups}
         handleClose={handleCloseGroups}
-        addGroup={handleAddGroup}
+        addGroup={setGroups}
+        deleteGroup={handleDeleteGroup}
         groups={groups}
-        setGroups={setGroups}
       />
     </div>
   )

@@ -1,9 +1,11 @@
 .contact-group {
-  margin-bottom: 20px;
+  width: 100%; /* Устанавливаем ширину группы */
   background-color: #ffffff;
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Отступы между группами */
+  box-sizing: border-box;
 }
 
 .contact-group-title {
@@ -11,6 +13,7 @@
   font-weight: bold;
   color: #3498db;
   margin-bottom: 10px;
+  text-align: left; /* Выравнивание текста по левому краю */
 }
 
 .contact-group.collapsed .contact-group-title {
@@ -35,13 +38,17 @@
 
 .contact-info {
   display: flex;
+  justify-content: space-between; /* Разделяем ФИО и номер телефона по краям */
   align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid #f1f1f1;
 }
 
 .contact-name {
   font-size: 16px;
   color: #2c3e50;
   margin-right: 10px;
+  flex-grow: 1;
 }
 
 .contact-phone {
