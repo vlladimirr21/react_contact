@@ -27,7 +27,11 @@ const AddContactModal = ({
   }, [currentContact])
 
   const handleSave = () => {
-    const newContact = { fullName, phoneNumber, group }
+    const newContact = {
+      fullName: fullName || 'Фамилия Имя Отчество',
+      phoneNumber: phoneNumber || '+7 (ХХХ) ХХХ - ХХ - ХХ',
+      group,
+    }
     addContact(newContact)
     setFullName('')
     setPhoneNumber('')

@@ -14,6 +14,7 @@
   color: #3498db;
   margin-bottom: 10px;
   text-align: left;
+  padding-left: 10px;
 }
 
 .contact-group.collapsed .contact-group-title {
@@ -40,8 +41,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-top: 1px solid #f1f1f1;
+  width: 100%;
 }
 
 .contact-name {
@@ -49,16 +49,21 @@
   color: #2c3e50;
   margin-right: 10px;
   flex-grow: 1;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .contact-phone {
   font-size: 14px;
   color: #7f8c8d;
+  text-align: right;
+  flex-shrink: 0;
 }
 
 .contact-actions {
   display: flex;
   align-items: center;
+  margin-left: 10px;
 }
 
 .contact-actions button {
