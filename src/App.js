@@ -20,6 +20,7 @@ const App = () => {
   const [showGroups, setShowGroups] = useState(false)
   const [currentContact, setCurrentContact] = useState(null)
   const [openGroups, setOpenGroups] = useState({})
+  const [isInited, setIsInited] = useState(false)
 
   useEffect(() => {
     const savedContacts = JSON.parse(localStorage.getItem('contacts')) || []
@@ -35,9 +36,11 @@ const App = () => {
       return acc
     }, {})
     setOpenGroups(initialOpenGroups)
+    setIsInited(true)
   }, [])
 
   useEffect(() => {
+    if (!isInited) return
     localStorage.setItem('contacts', JSON.stringify(contacts))
     localStorage.setItem('groups', JSON.stringify(groups))
   }, [contacts, groups])
